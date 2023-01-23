@@ -1,20 +1,26 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+var regenBtn = document.querySelector("#regen");
+var passwordText = document.querySelector("#password");
 var length;
-var lowercase;
 var uppercase;
+var lowercase;
 var numeric;
+var password;
 var specialChar;
-
-// Write password to the #password input
-function writePassword() {
-  var password;
-  var passwordText = document.querySelector("#password");
+// Establishes criteria for password
+function criteria() {
+  //variable reset
+  uppercase = false;
+  lowercase = false;
+  numeric = false;
+  specialChar = false;
   // Series of confirms/prompts to determine criteria
   length = prompt("Set a password length from 8-128:")
+  // Setting values based on user input
   if (length < 8 && length < 128) {
     alert("Please enter a range between 8 and 128");
-    writePassword();
+    criteria();
   }
   if (confirm("Would you like to include uppercase characters?")) {
     uppercase = true;
@@ -28,14 +34,8 @@ function writePassword() {
   if (confirm("Would you like to include special characters?")) {
     specialChar = true;
   }
-  password = generatePassword(length, uppercase, lowercase, numeric, specialChar);
-  passwordText.value = password;
-  // Reset values to prevent them from carrying over
-  length = null;
-  uppercase = null;
-  lowercase = null;
-  numeric = null;
-  specialChar = null;
+  writePassword(length, uppercase, lowercase, numeric, specialChar);
+  regenBtn.setAttribute("style", "display: inline; background-color: rgb(10, 96, 234);")
 }
 
 // Generates the password while adhering to selected criteria
@@ -66,9 +66,18 @@ function generatePassword(length, uppercase, lowercase, numeric, specialChar) {
   }
   return pw;
 }
+// Regenerates new password with same criteria
+
+function writePassword(length, uppercase, lowercase, numeric, specialChar) {
+  password = generatePassword(length, uppercase, lowercase, numeric, specialChar);
+  passwordText.value = password;
+}
 
 
+// Add event listener to generate and regenerate button
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", criteria);
+regenBtn.addEventListener("click", function() {
+  writePassword(length, uppercase, lowercase, numeric, specialChar);
+});
 
