@@ -17,11 +17,11 @@ function criteria() {
   specialChar = false;
   // Series of confirms/prompts to determine criteria
   length = prompt("Set a password length from 8-128:")
-  // Setting values based on user input
   if (length < 8 || length > 128) {
     alert("Please enter a range between 8 and 128");
     return criteria();
   }
+  // Setting values based on user input
   alert("Length of password set to " + length);
   if (confirm("Would you like to include uppercase characters? 1/4")) {
     uppercase = true;
@@ -43,7 +43,9 @@ function criteria() {
     alert("At least one preference must be selected");
     return criteria();
   }
+  // Calls the write password function
   writePassword(length, uppercase, lowercase, numeric, specialChar);
+  // Displays the regenerate button and sets the color to blue
   regenBtn.setAttribute("style", "display: inline; background-color: rgb(10, 96, 234);")
 }
 
@@ -75,8 +77,8 @@ function generatePassword(length, uppercase, lowercase, numeric, specialChar) {
   }
   return pw;
 }
-// Regenerates new password with same criteria
 
+// Prints password to page
 function writePassword(length, uppercase, lowercase, numeric, specialChar) {
   password = generatePassword(length, uppercase, lowercase, numeric, specialChar);
   passwordText.value = password;
@@ -84,7 +86,6 @@ function writePassword(length, uppercase, lowercase, numeric, specialChar) {
 
 
 // Add event listener to generate and regenerate button
-
 generateBtn.addEventListener("click", criteria);
 regenBtn.addEventListener("click", function() {
   writePassword(length, uppercase, lowercase, numeric, specialChar);
