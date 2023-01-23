@@ -18,21 +18,30 @@ function criteria() {
   // Series of confirms/prompts to determine criteria
   length = prompt("Set a password length from 8-128:")
   // Setting values based on user input
-  if (length < 8 && length < 128) {
+  if (length < 8 || length > 128) {
     alert("Please enter a range between 8 and 128");
-    criteria();
+    return criteria();
   }
-  if (confirm("Would you like to include uppercase characters?")) {
+  alert("Length of password set to " + length);
+  if (confirm("Would you like to include uppercase characters? 1/4")) {
     uppercase = true;
+    alert("Uppercase characters will be included");
   }
-  if (confirm("Would you like to include lowercase characters?")) {
+  if (confirm("Would you like to include lowercase characters? 2/4")) {
     lowercase = true;
+    alert("Lowercase characters will be included");
   }
-  if (confirm("Would you like to include numbers?")) {
+  if (confirm("Would you like to include numbers? 3/4")) {
     numeric = true;
+    alert("Numbers will be included");
   }
-  if (confirm("Would you like to include special characters?")) {
+  if (confirm("Would you like to include special characters? 4/4")) {
     specialChar = true;
+    alert("Special characters will be included");
+  }
+  if (uppercase === false && lowercase === false && numeric === false && specialChar === false) {
+    alert("At least one preference must be selected");
+    return criteria();
   }
   writePassword(length, uppercase, lowercase, numeric, specialChar);
   regenBtn.setAttribute("style", "display: inline; background-color: rgb(10, 96, 234);")
